@@ -1,4 +1,4 @@
-const db = require('../config/firebase');
+const {db} = require('../config/firebase');
 
 // Controlador para obtener los vuelos
 exports.getFlights = async (req, res) => {
