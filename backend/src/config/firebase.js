@@ -1,6 +1,5 @@
 const admin = require('firebase-admin');
-require('dotenv').config();  // Carga las variables del archivo .env
-//const serviceAccount = require('../airjourney-eaaf2-firebase-adminsdk-l4g3b-4e28e853e6.json'); // Cambia a la ruta correcta
+require('dotenv').config(); 
 const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT);
 
 admin.initializeApp({
@@ -11,6 +10,6 @@ admin.initializeApp({
 });
 
 
-const db = admin.firestore();  // Inicializamos Firestore
+const db = admin.firestore(); 
 
-module.exports = db;
+module.exports = {admin, db};
