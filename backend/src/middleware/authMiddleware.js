@@ -1,19 +1,26 @@
-import { verify } from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 
-const JWT_SECRET = process.env.JWT_SECRET; // Debe coincidir con la clave usada al generar el token
 
 // Middleware para verificar el token JWT
-export function verifyToken(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1]; // Espera el token en el formato "Bearer <token>"
-
-  if (!token) {
+const verifyToken = (req, res, next) => {
+  // Obtener el token del encabezado de autorización
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader) {
     return res.status(401).json({
       message: 'No token provided',
     });
   }
 
+  // Extraer el token del formato "Bearer <token>"
+  const token = authHeader.split(' ')[1];
+
   try {
-    const decoded = verify(token, JWT_SECRET);
+    // Verificar el token
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    // Agregar la información del token al objeto `req`
     req.user = decoded;
     next();
   } catch (error) {
@@ -22,4 +29,6 @@ export function verifyToken(req, res, next) {
       error: error.message,
     });
   }
-}
+};
+
+module.exports = verifyToken;
