@@ -63,4 +63,40 @@ exports.getFlights = async (req, res) => {
       return res.status(500).send('Error al procesar la compra del vuelo');
     }
   };
+
+
+  exports.eliminarCompraVuelo = async (req, res) => {
+    const { usuarioId, vueloId } = req.body;
+  
+    if (!usuarioId || !vueloId) {
+      return res.status(400).send('usuarioId y vueloId son requeridos');
+    }
+  
+    try {
+      const usuarioRef = db.collection('usuarios').doc(usuarioId);
+      const vueloRef = db.doc(`vuelos/${vueloId}`); // Obtener referencia del documento de vuelo
+  
+      // Comprobar si el usuario existe
+      const usuarioDoc = await usuarioRef.get();
+      if (!usuarioDoc.exists) {
+        return res.status(404).send('Usuario no encontrado');
+      }
+  
+      // Comprobar si el vuelo existe
+      const vueloDoc = await vueloRef.get();
+      if (!vueloDoc.exists) {
+        return res.status(404).send('Vuelo no encontrado');
+      }
+  
+      // Eliminar la referencia del vuelo de la lista de vuelosComprados
+      await usuarioRef.update({
+        vuelosComprados: fieldValue.arrayRemove(vueloRef) // Eliminar la referencia del vuelo
+      });
+  
+      return res.status(200).send('Vuelo cancelado con exito');
+    } catch (error) {
+      console.error('Error al eliminar vuelo:', error);
+      return res.status(500).send('Error al procesar la eliminación del vuelo');
+    }
+  };
   

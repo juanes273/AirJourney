@@ -14,5 +14,7 @@ router.post('/register', loginController.registerUser);
 router.post('/buy', flightController.comprarVuelo)
 //Ruta para itinerario generado por IA
 router.post('/generateItinerary', iaController.getGroqChatCompletion)
+//Ruta para cancelar vuelo
+router.post('/cancel', flightController.eliminarCompraVuelo)
 
 module.exports = router;
