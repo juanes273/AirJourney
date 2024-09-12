@@ -6,6 +6,8 @@ const iaController = require('../controllers/iaController')
 
 // Ruta para obtener vuelos
 router.get('/flights', flightController.getFlights);
+//Ruta para obtener detalles del vuelo
+router.get('/flights/:id', flightController.getVueloById)
 //Ruta para login
 router.post('/login', loginController.loginUser);
 //Ruta para registro
@@ -16,5 +18,6 @@ router.post('/buy', flightController.comprarVuelo)
 router.post('/generateItinerary', iaController.getGroqChatCompletion)
 //Ruta para cancelar vuelo
 router.post('/cancel', flightController.eliminarCompraVuelo)
+
 
 module.exports = router;

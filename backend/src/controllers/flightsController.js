@@ -100,3 +100,17 @@ exports.getFlights = async (req, res) => {
     }
   };
   
+
+  // Obtener un vuelo específico por ID
+exports.getVueloById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const vueloDoc = await db.collection('vuelos').doc(id).get();
+    if (!vueloDoc.exists) {
+      return res.status(404).json({ error: 'Vuelo not found' });
+    }
+    res.status(200).json({ id: vueloDoc.id, ...vueloDoc.data() });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching vuelo details' });
+  }
+};
