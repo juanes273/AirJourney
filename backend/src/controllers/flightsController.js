@@ -1,4 +1,4 @@
-const {db} = require('../config/firebase');
+const {db, fieldValue} = require('../config/firebase');
 
 // Controlador para obtener los vuelos
 exports.getFlights = async (req, res) => {
@@ -28,3 +28,39 @@ exports.getFlights = async (req, res) => {
       res.status(500).json({ message: 'Error al obtener vuelos', error });
     }
   };
+
+  exports.comprarVuelo = async (req, res) => {
+    const { usuarioId, vueloId } = req.body;
+  
+    if (!usuarioId || !vueloId) {
+      return res.status(400).send('usuarioId y vueloId son requeridos');
+    }
+  
+    try {
+      const usuarioRef = db.collection('usuarios').doc(usuarioId);
+      const vueloRef = db.collection('vuelos').doc(vueloId);
+  
+      // Comprobar si el usuario existe
+      const usuarioDoc = await usuarioRef.get();
+      if (!usuarioDoc.exists) {
+        return res.status(404).send('Usuario no encontrado');
+      }
+  
+      // Comprobar si el vuelo existe
+      const vueloDoc = await vueloRef.get();
+      if (!vueloDoc.exists) {
+        return res.status(404).send('Vuelo no encontrado');
+      }
+  
+      // Actualizar el documento del usuario con el vuelo comprado
+      await usuarioRef.update({
+        vuelosComprados: fieldValue.arrayUnion(vueloRef)
+      });
+  
+      return res.status(200).send('Vuelo agregado al usuario');
+    } catch (error) {
+      console.error('Error al comprar vuelo:', error);
+      return res.status(500).send('Error al procesar la compra del vuelo');
+    }
+  };
+  

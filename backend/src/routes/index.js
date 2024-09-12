@@ -9,5 +9,7 @@ router.get('/flights', flightController.getFlights);
 router.post('/login', loginController.loginUser);
 //Ruta para registro
 router.post('/register', loginController.registerUser);
+//Ruta para comprar vuelos
+router.post('/buy', flightController.comprarVuelo)
 
 module.exports = router;
