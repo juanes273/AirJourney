@@ -17,7 +17,8 @@ exports.registerUser = async (req, res) => {
         email: email,
         password: hashedPassword,
         nombre: nombre,
-        createdAt: new Date()
+        createdAt: new Date(),
+        vuelosComprados: []
       });
   
       res.status(201).json({
