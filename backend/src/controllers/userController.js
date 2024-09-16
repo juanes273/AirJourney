@@ -74,3 +74,42 @@ exports.loginUser = async (req, res) => {
     }
   };
   
+  exports.obtenerVuelosComprados = async (req, res) => {
+    const { usuarioId } = req.body;
+  
+    if (!usuarioId) {
+      return res.status(400).send('usuarioId es requerido');
+    }
+  
+    try {
+      const usuarioRef = db.collection('usuarios').doc(usuarioId);
+  
+      // Comprobar si el usuario existe
+      const usuarioDoc = await usuarioRef.get();
+      if (!usuarioDoc.exists) {
+        return res.status(404).send('Usuario no encontrado');
+      }
+  
+      // Obtener los vuelos comprados (referencias)
+      const usuarioData = usuarioDoc.data();
+      const vuelosComprados = usuarioData.vuelosComprados || [];
+  
+      // Comprobar si el usuario tiene vuelos comprados
+      if (vuelosComprados.length === 0) {
+        return res.status(200).send('El usuario no tiene vuelos comprados');
+      }
+  
+      // Obtener detalles de cada vuelo referenciado
+      const vuelosDetalle = await Promise.all(
+        vuelosComprados.map(async (vueloRef) => {
+          const vueloDoc = await vueloRef.get(); // Obtener detalles del vuelo
+          return { id: vueloDoc.id, ...vueloDoc.data() }; // Retornar ID y datos del vuelo
+        })
+      );
+  
+      return res.status(200).json(vuelosDetalle); // Retornar detalles de los vuelos
+    } catch (error) {
+      console.error('Error al obtener vuelos comprados:', error);
+      return res.status(500).send('Error al obtener los vuelos comprados');
+    }
+  };
