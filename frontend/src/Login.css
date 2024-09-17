@@ -1,0 +1,69 @@
+/* Estilos para el contenedor principal */
+.login-container {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Imagen en la mitad izquierda */
+  .left-side {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Asegura que la imagen cubra completamente la mitad izquierda sin dejar espacios */
+  .img-cover {
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  
+  /* Formulario de login */
+  .right-side {
+    background-color: #f8f9fa;
+    padding: 20px;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-form h1 {
+    font-family: 'Arial', sans-serif;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Estilo para el botón "Registrarse" */
+  .btn-link {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsivo: para pantallas más pequeñas ocultar la imagen */
+  @media (max-width: 768px) {
+    .left-side {
+      display: none;
+    }
+  
+    .right-side {
+      width: 100%;
+      height: 100vh;
+      padding: 0 15px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  

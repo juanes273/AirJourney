@@ -1,10 +1,13 @@
 import React from 'react';
 import Itinerario from './Itinerario';
+import Soporte from './Soporte';
+import Login from './Login';
+import Register from './Register';
 
 const App = () => {
   return (
     <div>
-      <Itinerario /> {/* Renderizamos el componente Itinerario */}
+      <Login/> 
     </div>
   );
 };
