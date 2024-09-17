@@ -11,7 +11,7 @@ module.exports.getGroqChatCompletion = async (req, res) => {
   }
 
   try {
-    const prompt = `Give me a ${dias} itinerary of things to do in ${destino}, including food, sites to visit and good views`;
+    const prompt = `Give me a ${dias} itinerary of things to do in ${destino}, including food, sites to visit and good views, also i need that you recomend diferents sites near to ${destino} `;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
