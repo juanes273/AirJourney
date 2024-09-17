@@ -1,21 +1,28 @@
 import React from 'react';
+import { List, ListItem, ListItemText, Button, Typography, Box } from '@mui/material';
 
 const FlightList = ({ flights, onSelectFlight }) => {
   return (
-    <div>
-      <h2>Vuelos Disponibles</h2>
-      <ul>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h5" gutterBottom>Vuelos Disponibles</Typography>
+      <List>
         {flights.map((flight, index) => (
-          <li key={index}>
-            <div>
-              <p><strong>{flight.airline}</strong> - {flight.price}</p>
-              <p>Duración: {flight.duration}, Escalas: {flight.stops}</p>
-              <button onClick={() => onSelectFlight(flight)}>Seleccionar</button>
-            </div>
-          </li>
+          <ListItem key={index} sx={{ mb: 2, border: '1px solid #ddd', borderRadius: '8px', p: 2 }}>
+            <ListItemText
+              primary={`${flight.airline} - ${flight.price}`}
+              secondary={`Duración: ${flight.duration}, Escalas: ${flight.stops}`}
+            />
+            <Button 
+              variant="outlined" 
+              color="primary"
+              onClick={() => onSelectFlight(flight)}
+            >
+              Seleccionar
+            </Button>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

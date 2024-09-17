@@ -1,20 +1,21 @@
 import React from 'react';
+import { Typography, Box, Paper } from '@mui/material';
 
 const FlightDetails = ({ selectedFlight }) => {
   return (
-    <div>
-      <h2>Detalles del Vuelo</h2>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h5" gutterBottom>Detalles del Vuelo</Typography>
       {selectedFlight ? (
-        <div>
-          <p><strong>Aerolínea:</strong> {selectedFlight.airline}</p>
-          <p><strong>Precio:</strong> {selectedFlight.price}</p>
-          <p><strong>Duración:</strong> {selectedFlight.duration}</p>
-          <p><strong>Escalas:</strong> {selectedFlight.stops}</p>
-        </div>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="body1"><strong>Aerolínea:</strong> {selectedFlight.airline}</Typography>
+          <Typography variant="body1"><strong>Precio:</strong> {selectedFlight.price}</Typography>
+          <Typography variant="body1"><strong>Duración:</strong> {selectedFlight.duration}</Typography>
+          <Typography variant="body1"><strong>Escalas:</strong> {selectedFlight.stops}</Typography>
+        </Paper>
       ) : (
-        <p>No se ha seleccionado ningún vuelo.</p>
+        <Typography>No se ha seleccionado ningún vuelo.</Typography>
       )}
-    </div>
+    </Box>
   );
 };
 

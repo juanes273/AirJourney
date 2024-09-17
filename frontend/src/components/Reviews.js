@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Typography, List, ListItem, ListItemText, Box } from '@mui/material';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([
@@ -7,17 +8,19 @@ const Reviews = () => {
   ]);
 
   return (
-    <div>
-      <h2>Reseñas y Valoraciones</h2>
-      <ul>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h5" gutterBottom>Reseñas y Valoraciones</Typography>
+      <List>
         {reviews.map((review, index) => (
-          <li key={index}>
-            <p><strong>{review.user}</strong> - {review.rating} estrellas</p>
-            <p>{review.comment}</p>
-          </li>
+          <ListItem key={index} sx={{ mb: 2, border: '1px solid #ddd', borderRadius: '8px', p: 2 }}>
+            <ListItemText
+              primary={`${review.user} - ${review.rating} estrellas`}
+              secondary={review.comment}
+            />
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 
